@@ -76,7 +76,7 @@ class TestCard(unittest.TestCase):
         c3 = hw5_cards.Card(suit=3, rank=13)
         
         self.assertEqual(c3.__str__(), "King of Spades")
-        return c3.__str__, "King of Spades"
+        return c3.__str__(), "King of Spades"
     
     def test_q4(self):
         '''
@@ -107,12 +107,9 @@ class TestCard(unittest.TestCase):
 
         '''
         c5 = hw5_cards.Deck()
-        total = hw5_cards.Deck().cards
-        card_str = []
-        for a in total:
-            card_str.append(a.__str__())
-        self.assertIn(c5.deal_card().__str__(), card_str)
-        return c5.deal_card().__str__(), card_str
+        drop = c5.deal_card()
+        self.assertIsInstance(drop, hw5_cards.Card)
+        return drop, hw5_cards.Card
     
     def test_q6(self):
         '''
@@ -148,20 +145,14 @@ class TestCard(unittest.TestCase):
 
         '''
         c7 = hw5_cards.Deck()
-        total = hw5_cards.Deck()
+        drop = c7.deal_card()
+        len_drop= len(c7.cards)
 
-        drop_card = c7.deal_card()
-        c7.replace_card(drop_card)
+        c7.replace_card(drop)
+        len_add = len(c7.cards)
 
-        c7_str = []
-        total_str = []
-        for a in c7.cards:
-            c7_str.append(a.__str__())
-        for b in total.cards:
-            total_str.append(b.__str__())
-
-        self.assertEqual(c7_str, total_str)
-        return c7_str, total_str
+        self.assertEqual(len_drop+1, len_add, 52)
+        return len_drop+1, len_add, 52
     
     def test_q8(self):
         '''
